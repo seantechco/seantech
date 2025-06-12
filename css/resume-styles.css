@@ -1,0 +1,52 @@
+ 
+       
+            /* Target the description paragraph within the 'Expertise' */
+            #resume .timeline .exp p {
+                position: relative;
+                cursor: pointer;
+
+                /* 1. THE TRUNCATION */
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+				line-clamp: 2;
+
+                /* THE ANIMATION */
+                max-height: 42px; 
+                transition: max-height 0.4s ease-in-out;
+            }
+
+            /* THE EXPANSION */
+            #resume .timeline .exp p:hover {
+                -webkit-line-clamp: 99;
+                line-clamp: 99;
+                max-height: 500px; }
+				 
+    
+    /* Target the description paragraph within the 'Highlights' */
+       #resume .timeline .edu p {
+        position: relative;
+        cursor: pointer;
+
+        /* 1. THE TRUNCATION */
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        
+        /* 2. THE ANIMATION */
+        max-height: 42px; 
+        transition: max-height 0.4s ease-in-out;
+    }
+
+    /* 3. THE EXPANSION */
+    #resume .timeline .edu p:hover {
+        -webkit-line-clamp: 99;
+        line-clamp: 99;
+        max-height: 500px;
+    }
+
+            
+        
