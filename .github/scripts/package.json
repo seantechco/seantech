@@ -1,0 +1,21 @@
+{
+  "name": "seantech-github-actions",
+  "version": "2.0.0",
+  "description": "GitHub Actions scripts for Sean Tech Consulting website - Full LinkedIn CRUD sync",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No tests configured\"",
+    "post": "node post-to-linkedin.js",
+    "update": "node update-linkedin.js",
+    "delete": "node delete-from-linkedin.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.1.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Sean Tech",
+  "license": "UNLICENSED"
+}

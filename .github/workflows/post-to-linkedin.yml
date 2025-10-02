@@ -1,0 +1,74 @@
+name: Post Article to LinkedIn
+
+on:
+  push:
+    paths:
+      - 'article/*.html'
+      - '!article/article-template.html'  # Exclude template from triggering
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      article_path:
+        description: 'Path to article file (e.g., article/my-article.html)'
+        required: true
+        type: string
+
+jobs:
+  post-to-linkedin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2  # Fetch last 2 commits to detect new files
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd .github/scripts
+          npm install axios cheerio
+
+      - name: Detect new articles
+        id: detect_articles
+        run: |
+          # Get list of NEW HTML files (A = added, not M = modified, D = deleted)
+          NEW_FILES=$(git diff --name-only --diff-filter=A HEAD^ HEAD | grep '^article/.*\.html$' | grep -v 'article-template.html' || echo "")
+
+          if [ -z "$NEW_FILES" ]; then
+            echo "No new articles detected"
+            echo "articles=" >> $GITHUB_OUTPUT
+          else
+            echo "New articles:"
+            echo "$NEW_FILES"
+            # Convert newlines to commas for passing to next step
+            ARTICLES_CSV=$(echo "$NEW_FILES" | tr '\n' ',')
+            echo "articles=$ARTICLES_CSV" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Post articles to LinkedIn
+        if: steps.detect_articles.outputs.articles != ''
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          SITE_URL: 'https://seantech.co'
+          ARTICLES: ${{ steps.detect_articles.outputs.articles }}
+        run: node .github/scripts/post-to-linkedin.js
+
+      - name: Commit mapping database
+        if: steps.detect_articles.outputs.articles != ''
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/scripts/article-linkedin-map.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update LinkedIn article mappings [automated]"
+          git push
+
+      - name: Summary
+        if: steps.detect_articles.outputs.articles != ''
+        run: |
+          echo "✅ Articles posted to LinkedIn"
+          echo "📝 Articles: ${{ steps.detect_articles.outputs.articles }}"

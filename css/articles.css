@@ -1,0 +1,222 @@
+/**
+ * Articles Display Styles
+ * Responsive article cards for homepage
+ */
+
+/* Article container - single row layout */
+.block-posts {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  margin-left: -15px;   /* Match Bootstrap .row negative margin for proper alignment */
+  margin-right: -15px;  /* Match Bootstrap .row negative margin for proper alignment */
+}
+
+.article-card {
+  flex: 0 0 auto;
+  width: 20%;  /* 5 articles = 20% each */
+  padding: 0 15px;  /* Match Bootstrap column padding */
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+  box-sizing: border-box;  /* Ensure padding is included in width calculation */
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Loading text styles */
+.loading-text {
+  color: #999;
+  font-size: 16px;
+  padding: 40px 0;
+}
+
+/* Article post styles */
+.post.latest {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.post.latest:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.post.latest .post-media {
+  position: relative;
+  overflow: hidden;
+  padding-top: 60%; /* 16:9 aspect ratio */
+}
+
+.post.latest .post-media img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.post.latest .post-media:hover img {
+  transform: scale(1.05);
+}
+
+.post.latest .post-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.post.latest .post-details h4 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  min-height: 50px;
+}
+
+.post.latest .post-details h4 a {
+  color: #333;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.post.latest .post-details h4 a:hover {
+  color: #199cdb;
+}
+
+.post.latest .post-meta {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin: 15px 0;
+}
+
+.post.latest .post-meta ul {
+  margin: 0;
+  padding: 10px 0;
+}
+
+.post.latest .post-meta li {
+  font-size: 12px;
+  color: #999;
+}
+
+.post.latest .post-meta li.article-tag {
+  display: inline-block;
+}
+
+.post.latest .post-meta .tag-label {
+  display: inline-block;
+  background-color: #199cdb;
+  color: #ffffff;
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.post.latest .post-details p {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.post.latest .post-details .more {
+  color: #199cdb;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+  margin-top: auto;
+}
+
+.post.latest .post-details .more:hover {
+  color: #147ba8;
+}
+
+/* Responsive adjustments */
+
+/* Desktop: Show all 5 articles */
+@media (min-width: 1200px) {
+  .article-card {
+    width: 20%;  /* 5 articles */
+  }
+}
+
+/* Medium desktop: Show 4 articles */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .article-card {
+    width: 25%;  /* 4 articles */
+  }
+
+  .article-card:nth-child(5) {
+    display: none;
+  }
+}
+
+/* Tablet: Show 3 articles */
+@media (min-width: 768px) and (max-width: 991px) {
+  .article-card {
+    width: 33.333%;  /* 3 articles */
+  }
+
+  .article-card:nth-child(4),
+  .article-card:nth-child(5) {
+    display: none;
+  }
+}
+
+/* Mobile: Show 3 articles stacked */
+@media (max-width: 767px) {
+  .block-posts {
+    flex-direction: column;
+  }
+
+  .article-card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .article-card:nth-child(n+4) {
+    display: none;
+  }
+
+  .post.latest .post-details h4 {
+    font-size: 16px;
+    min-height: auto;
+  }
+
+  .post.latest .post-details p {
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* No clearfix needed - using flexbox */
+
+/* Empty state styles */
+.article-card .subtitle {
+  color: #999;
+  font-size: 16px;
+}
+
+.article-card .but {
+  display: inline-block;
+  margin-top: 20px;
+}

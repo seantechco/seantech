@@ -267,6 +267,34 @@ nav.on("click", function(e){
 		
 });
 
+// Email protection - decode obfuscated email addresses
+$('.email-link').each(function() {
+    var $this = $(this);
+    var user = $this.data('user');
+    var domain = $this.data('domain');
+
+    if (user && domain) {
+        // Reverse the strings
+        var realUser = user.split('').reverse().join('');
+        var realDomain = domain.split('').reverse().join('');
+        var email = realUser + '@' + realDomain;
+
+        // Update the href and text
+        $this.attr('href', 'mailto:' + email);
+
+        // Only update text if it doesn't already show the email
+        if ($this.text().indexOf('@') === -1 || $this.text() !== email) {
+            $this.text(email);
+        }
+    }
+});
+
+// Prevent default action for email links without proper data
+$('.email-link').on('click', function(e) {
+    if ($(this).attr('href') === '#') {
+        e.preventDefault();
+    }
+});
 
 // Windows load
 

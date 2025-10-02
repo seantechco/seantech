@@ -1,0 +1,56 @@
+{
+  "generated": "2025-10-01T21:59:29.016Z",
+  "count": 5,
+  "articles": [
+    {
+      "title": "Why Hands-On CTOs Scale AI Faster",
+      "description": "Why the most successful CTO-level leaders stay 60%+ hands-on with code and architecture. Lessons from 13 years of fractional CTO work across federal agencies, TechStars startups, and Fortune 500 companies.",
+      "publishedDate": "2025-03-05",
+      "category": "Technical Leadership",
+      "image": "img/blog/3.jpg",
+      "filename": "board-leadership-technology.html",
+      "relativePath": "article/board-leadership-technology.html",
+      "articleUrl": "https://seantech.co/article/board-leadership-technology.html"
+    },
+    {
+      "title": "A.N.D.R.O.I.D. Ops: Agentic AI Framework",
+      "description": "A detailed look at the patent-pending A.N.D.R.O.I.D. Ops methodology for building secure, scalable agentic AI systems—from federal agencies to venture-backed startups. Lessons learned from implementing autonomous AI across radically different contexts.",
+      "publishedDate": "2025-02-10",
+      "category": "AI Development",
+      "image": "img/blog/2.jpg",
+      "filename": "agentic-ai-systems.html",
+      "relativePath": "article/agentic-ai-systems.html",
+      "articleUrl": "https://seantech.co/article/agentic-ai-systems.html"
+    },
+    {
+      "title": "Beyond Kubernetes: Alpine + Podman",
+      "description": "Kubernetes isn't always the answer. Learn how lightweight containerization with Alpine Linux, Podman, and Bottlerocket delivers better security, faster deployments, and lower overhead—without the complexity tax.",
+      "publishedDate": "2025-01-15",
+      "category": "Container Security",
+      "image": "img/blog/2.jpg",
+      "filename": "quantum-computing-future.html",
+      "relativePath": "article/quantum-computing-future.html",
+      "articleUrl": "https://seantech.co/article/quantum-computing-future.html"
+    },
+    {
+      "title": "AI Integration in Enterprise Architecture",
+      "description": "Exploring how artificial intelligence is transforming enterprise architecture patterns and strategic technology planning in modern organizations.",
+      "publishedDate": "2024-09-15",
+      "category": "Enterprise Architecture",
+      "image": "img/blog/1.jpg",
+      "filename": "ai-enterprise-architecture.html",
+      "relativePath": "article/ai-enterprise-architecture.html",
+      "articleUrl": "https://seantech.co/article/ai-enterprise-architecture.html"
+    },
+    {
+      "title": "Federal AI Consulting Best Practices",
+      "description": "Navigating AI implementation in federal and defense sectors, from DHS strategic advisory to CMMC compliance and secure enterprise architecture.",
+      "publishedDate": "2024-06-05",
+      "category": "Federal Consulting",
+      "image": "img/blog/1.jpg",
+      "filename": "federal-ai-consulting.html",
+      "relativePath": "article/federal-ai-consulting.html",
+      "articleUrl": "https://seantech.co/article/federal-ai-consulting.html"
+    }
+  ]
+}

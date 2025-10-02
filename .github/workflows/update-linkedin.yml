@@ -1,0 +1,76 @@
+name: Update Article on LinkedIn
+
+on:
+  push:
+    paths:
+      - 'article/*.html'
+      - 'article/drafts/*.html'
+      - 'article/archive/*.html'
+      - '!article/article-template.html'
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      article_paths:
+        description: 'Comma-separated paths to updated articles (e.g., article/my-post.html,article/another.html)'
+        required: true
+        type: string
+
+jobs:
+  update-linkedin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2  # Fetch last 2 commits to detect modified files
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd .github/scripts
+          npm install axios cheerio
+
+      - name: Detect modified articles
+        id: detect_modified
+        run: |
+          # Get list of modified HTML files (M = modified, not A = added, D = deleted)
+          MODIFIED_FILES=$(git diff --name-only --diff-filter=M HEAD^ HEAD | grep '^article/.*\.html$' | grep -v 'article-template.html' || echo "")
+
+          if [ -z "$MODIFIED_FILES" ]; then
+            echo "No modified articles detected"
+            echo "articles=" >> $GITHUB_OUTPUT
+          else
+            echo "Modified articles:"
+            echo "$MODIFIED_FILES"
+            # Convert newlines to commas for passing to next step
+            ARTICLES_CSV=$(echo "$MODIFIED_FILES" | tr '\n' ',')
+            echo "articles=$ARTICLES_CSV" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update on LinkedIn
+        if: steps.detect_modified.outputs.articles != ''
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
+          SITE_URL: 'https://seantech.co'
+          UPDATED_ARTICLES: ${{ steps.detect_modified.outputs.articles }}
+        run: node .github/scripts/update-linkedin.js
+
+      - name: Commit updated mapping database
+        if: steps.detect_modified.outputs.articles != ''
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .github/scripts/article-linkedin-map.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update mappings after LinkedIn post update [automated]"
+          git push
+
+      - name: Summary
+        if: steps.detect_modified.outputs.articles != ''
+        run: |
+          echo "✏️ Articles updated on LinkedIn"
+          echo "📝 Articles: ${{ steps.detect_modified.outputs.articles }}"

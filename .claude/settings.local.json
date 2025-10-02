@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:taomedia.org)",
+      "WebFetch(domain:hardmagic.com)",
+      "WebFetch(domain:curiositycorp.org)",
+      "WebFetch(domain:taomgt.com)",
+      "WebFetch(domain:3hue.net)",
+      "WebFetch(domain:archsystemsinc.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

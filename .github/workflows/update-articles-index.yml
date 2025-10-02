@@ -1,0 +1,49 @@
+name: Update Articles Index
+
+on:
+  push:
+    paths:
+      - 'article/**/*.html'
+      - '!article/article-template.html'
+      - '!article/drafts/**'
+      - '!article/archive/**'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd .github/scripts
+          npm install cheerio
+
+      - name: Generate articles index
+        env:
+          SITE_URL: 'https://seantech.co'
+        run: node .github/scripts/generate-articles-index.js
+
+      - name: Commit articles index
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add articles-index.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update articles index [automated]"
+          git push
+
+      - name: Summary
+        run: |
+          echo "✅ Articles index updated"
+          if [ -f articles-index.json ]; then
+            echo "📊 Articles indexed:"
+            node -pe "JSON.parse(require('fs').readFileSync('articles-index.json', 'utf8')).count"
+          fi
