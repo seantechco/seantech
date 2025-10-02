@@ -5,6 +5,15 @@
 
 $(document).ready(function(){
 
+// Philosophy Card Flip
+$('.philosophy-card-container').on('click', function(){
+	// Flip back all other cards first
+	$('.philosophy-card-container').not(this).find('.philosophy-card.flipped').removeClass('flipped');
+
+	// Toggle this card
+    $(this).find('.philosophy-card').toggleClass('flipped');
+});
+
 // FAQ Card Flip
 $('.faq-card-container').on('click', function(){
 	// Flip back all other cards first
@@ -218,21 +227,40 @@ $('.popup-youtube, .popup-vimeo').magnificPopup({
 });
 				
 
-$('.filter ').on("click", "li a",function(){
+$('.filter ').on("click", "li a",function(e){
+	e.preventDefault();
+
 	$(this).addClass('active');
 	$(this).parent().siblings().find('a').removeClass('active');
     var filters = $(this).attr('data-filter');
-    $(this).closest(blockWorks).find('.item').removeClass('disable');
 
-    if (filters !== 'all') {
-       var selected =  $(this).closest(blockWorks).find('.item');
-        for(var i = 0; i < selected.length; i++){
-        if (!selected.eq(i).hasClass(filters)) {
-           selected.eq(i).addClass('disable');
-		}
-    }	
-}
-   
+    var $container = $(this).closest(blockWorks).find('.row.masonry');
+
+    // Use Isotope's built-in filtering with a function to check child .item element
+    if (filters === 'all') {
+        $container.isotope({ filter: '*' });
+        $(this).closest(blockWorks).find('.item').removeClass('disable');
+    } else {
+        // Filter function checks the child .item element for the class
+        $container.isotope({
+            filter: function() {
+                var $item = $(this).find('.item');
+                return $item.hasClass(filters);
+            }
+        });
+
+        // Update disable class for non-matching items
+        $container.find('.item-block.masonry').each(function(){
+            var $this = $(this);
+            var $item = $this.find('.item');
+            if($item.hasClass(filters)) {
+                $item.removeClass('disable');
+            } else {
+                $item.addClass('disable');
+            }
+        });
+    }
+
    return false;
 });
 
@@ -434,10 +462,23 @@ $(window).load(function() {
 $(".loader-inner").fadeOut(); 
 $(".loader").delay(200).fadeOut("slow"); 
 	
-// Masonry items
-var $container = $('.row.masonry');  
-	$container.masonry({
-	itemSelector : '.resume-boxe.masonry, .item-block.masonry'
+// Isotope items (masonry layout with filtering support)
+var $container = $('.row.masonry');
+	$container.isotope({
+	itemSelector : '.resume-boxe.masonry, .item-block.masonry',
+	layoutMode: 'masonry',
+	masonry: {
+		horizontalOrder: true
+	},
+	hiddenStyle: {
+		opacity: 0,
+		transform: 'scale(0.001)'
+	},
+	visibleStyle: {
+		opacity: 1,
+		transform: 'scale(1)'
+	},
+	transitionDuration: '0.4s'
 });
 	
 });
