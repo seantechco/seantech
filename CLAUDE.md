@@ -84,7 +84,7 @@ C:\Repos\Sean\seantech\
 ### 4. Contact Form (send.php)
 - Server-side PHP form processing
 - Email validation and injection protection
-- Sends emails to: support@mutationmedia.net
+- Sends emails to: support@seantech.co
 - AJAX submission with success/error handling
 
 ## Development Guidelines

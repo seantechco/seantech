@@ -5,6 +5,134 @@
 
 $(document).ready(function(){
 
+// FAQ Card Flip
+$('.faq-card-container').on('click', function(){
+	// Flip back all other cards first
+	$('.faq-card-container').not(this).find('.faq-card.flipped').removeClass('flipped');
+
+	// Toggle this card
+    $(this).find('.faq-card').toggleClass('flipped');
+});
+
+// FAQ Filter
+$('.faq-filter').on('click', 'li a', function(e){
+	e.preventDefault();
+
+	// Update active state
+	$(this).addClass('active');
+	$(this).parent().siblings().find('a').removeClass('active');
+
+	var filterValue = $(this).attr('data-filter');
+
+	// Reset all flipped cards
+	$('.faq-card.flipped').removeClass('flipped');
+
+	if(filterValue === 'all') {
+		// Show all cards with animation
+		var delay = 0;
+		$('.faq-grid > .col-md-4').each(function(){
+			var $this = $(this);
+			if($this.hasClass('hidden')) {
+				setTimeout(function(){
+					$this.removeClass('hidden').addClass('filtering-in');
+					setTimeout(function(){
+						$this.removeClass('filtering-in');
+					}, 400);
+				}, delay);
+				delay += 60;
+			}
+		});
+	} else {
+		// Animate out non-matching cards
+		$('.faq-grid > .col-md-4').each(function(){
+			var $this = $(this);
+			var $container = $this.find('.faq-card-container');
+			if($container.attr('data-category') !== filterValue && !$this.hasClass('hidden')) {
+				$this.addClass('filtering-out');
+				setTimeout(function(){
+					$this.removeClass('filtering-out').addClass('hidden');
+				}, 400);
+			}
+		});
+
+		// Animate in matching cards with stagger
+		setTimeout(function(){
+			var delay = 0;
+			$('.faq-grid > .col-md-4').each(function(){
+				var $this = $(this);
+				var $container = $this.find('.faq-card-container');
+				if($container.attr('data-category') === filterValue && $this.hasClass('hidden')) {
+					setTimeout(function(){
+						$this.removeClass('hidden').addClass('filtering-in');
+						setTimeout(function(){
+							$this.removeClass('filtering-in');
+						}, 400);
+					}, delay);
+					delay += 60;
+				}
+			});
+		}, 200);
+	}
+});
+
+// Solutions Filter
+$('.solutions-filter').on('click', 'li a', function(e){
+	e.preventDefault();
+
+	// Update active state
+	$(this).addClass('active');
+	$(this).parent().siblings().find('a').removeClass('active');
+
+	var filterValue = $(this).attr('data-filter');
+
+	if(filterValue === 'all') {
+		// Show all cards with animation
+		var delay = 0;
+		$('.solutions-grid > .col-md-2').each(function(){
+			var $this = $(this);
+			if($this.hasClass('hidden')) {
+				setTimeout(function(){
+					$this.removeClass('hidden').addClass('filtering-in');
+					setTimeout(function(){
+						$this.removeClass('filtering-in');
+					}, 400);
+				}, delay);
+				delay += 60;
+			}
+		});
+	} else {
+		// Animate out non-matching cards
+		$('.solutions-grid > .col-md-2').each(function(){
+			var $this = $(this);
+			var $container = $this.find('.solutions-card-container');
+			if($container.attr('data-category') !== filterValue && !$this.hasClass('hidden')) {
+				$this.addClass('filtering-out');
+				setTimeout(function(){
+					$this.removeClass('filtering-out').addClass('hidden');
+				}, 400);
+			}
+		});
+
+		// Animate in matching cards with stagger
+		setTimeout(function(){
+			var delay = 0;
+			$('.solutions-grid > .col-md-2').each(function(){
+				var $this = $(this);
+				var $container = $this.find('.solutions-card-container');
+				if($container.attr('data-category') === filterValue && $this.hasClass('hidden')) {
+					setTimeout(function(){
+						$this.removeClass('hidden').addClass('filtering-in');
+						setTimeout(function(){
+							$this.removeClass('filtering-in');
+						}, 400);
+					}, delay);
+					delay += 60;
+				}
+			});
+		}, 200);
+	}
+});
+
 // Sticky nav
 
 var header = $('.main-nav'),
@@ -295,6 +423,7 @@ $('.email-link').on('click', function(e) {
         e.preventDefault();
     }
 });
+
 
 // Windows load
 
