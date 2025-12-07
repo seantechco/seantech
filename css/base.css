@@ -344,10 +344,10 @@ iframe{
 /*Misc*/
 	
 	.pt-10{padding-top:10px !important;} 
-	.pb-10{padding-bottom:10px !important;}
-	.pt-15{padding-top:15px !important;} 
+	.pb-10{padding-bottom:5px !important;}
+	.pt-15{padding-top:7px !important;}
 	.pb-15{padding-bottom:15px !important;}
-	.pt-20{padding-top:20px !important;} 
+	.pt-20{padding-top:20px !important;}
 	.pb-20{padding-bottom:20px !important;}
 	.pt-30{padding-top:30px !important;} 
 	.pb-30{padding-bottom:30px !important;}

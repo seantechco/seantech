@@ -371,21 +371,26 @@ a.mobile-btn{
 }
 
 .about-text-col {
-    padding: 40px 60px 40px 40px;
+    padding: 20px 60px 40px 40px;
+    display: flex;
+    align-items: center;
 }
 
 .about-text-content h2 {
-    font-size: 42px;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 30px;
+    font-size: 19px;
+    line-height: 28px;
+    color: #333333;
+    margin-bottom: 20px;
+    font-family: "open_sanslight", Arial, sans-serif;
+    padding-right: 15px;
 }
 
 .about-text-content .about-blurb {
-    font-size: 17px;
-    line-height: 30px;
-    color: #555;
-    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #777777;
+    margin-bottom: 20px;
+    font-family: "open_sans", Arial, sans-serif;
 }
 
 .about-text-content .about-blurb strong {
@@ -2610,6 +2615,9 @@ ul.latest-post a i {
     -webkit-transform-style: preserve-3d;
     transition: transform 0.6s;
     cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
 }
 
 .faq-card.flipped {
@@ -2633,6 +2641,10 @@ ul.latest-post a i {
     text-align: center;
     padding: 30px 25px;
     border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translateZ(0);
+}
 	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     box-sizing: border-box;
 }
@@ -2681,9 +2693,9 @@ ul.latest-post a i {
 	/* About Hero Responsive for Tablets */
 	.about-hero-new { padding: 60px 0; }
 	.about-hero-new .row { flex-direction: column-reverse; }
-	.about-text-col { padding: 35px 30px; }
-	.about-text-content h2 { font-size: 36px; text-align: center; }
-	.about-text-content .about-blurb { font-size: 16px; line-height: 28px; }
+	.about-text-col { padding: 25px 30px; }
+	.about-text-content h2 { font-size: 19px; text-align: center; }
+	.about-text-content .about-blurb { font-size: 14px; line-height: 22px; }
 	.about-photo-col { padding: 30px; }
 	.about-photo-wrapper { max-width: 350px; margin: 0 auto; }
 }
@@ -2711,9 +2723,9 @@ ul.latest-post a i {
 	/* New About Hero Responsive */
 	.about-hero-new { padding: 40px 0; }
 	.about-hero-new .row { flex-direction: column-reverse; }
-	.about-text-col { padding: 25px 15px; }
-	.about-text-content h2 { font-size: 28px; margin-bottom: 15px; text-align: center; }
-	.about-text-content .about-blurb { font-size: 14px; line-height: 24px; }
+	.about-text-col { padding: 15px 15px; }
+	.about-text-content h2 { font-size: 19px; margin-bottom: 15px; text-align: center; }
+	.about-text-content .about-blurb { font-size: 14px; line-height: 22px; }
 	.about-photo-col { padding: 15px; }
 	.about-photo-wrapper { max-width: 250px; margin: 0 auto; }
 
